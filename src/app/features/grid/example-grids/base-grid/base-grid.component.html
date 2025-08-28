@@ -1,0 +1,17 @@
+<kendo-grid
+  [data]="gridService.state().items"
+  [loading]="gridService.state().loading"
+  [pageSize]="gridService.state().gridState.take"
+  [skip]="gridService.state().gridState.skip"
+  [pageable]="pagerSettings()"
+  [sortable]="sorterSettings()"
+  [sort]="gridService.state().gridState.sort"
+  [height]="700"
+  (dataStateChange)="gridService.dataStateChange($event, 'API')"
+>
+  <kendo-grid-column field="id" title="ID"> </kendo-grid-column>
+  <kendo-grid-column field="title" title="Nome prodotto"> </kendo-grid-column>
+  <kendo-grid-column field="description" title="Descrizione"> </kendo-grid-column>
+  <kendo-grid-column field="category" title="Categoria"> </kendo-grid-column>
+
+</kendo-grid>

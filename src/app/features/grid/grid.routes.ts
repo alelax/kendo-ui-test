@@ -1,0 +1,24 @@
+import { Routes } from '@angular/router';
+import GridComponent from './grid.component';
+
+export const gridRoutes: Routes = [
+  {
+    path: '',
+    component: GridComponent,
+    children: [
+      {
+        path: '',
+        redirectTo: 'base-grid',
+        pathMatch: 'full'
+      },
+      {
+        path: 'base-grid',
+        loadComponent: () => import('./example-grids/base-grid/base-grid.component')
+      },
+      {
+        path: 'grid-with-grouping',
+        loadComponent: () => import('./example-grids/grid-with-grouping/grid-with-grouping.component')
+      }
+    ]
+  }
+];
