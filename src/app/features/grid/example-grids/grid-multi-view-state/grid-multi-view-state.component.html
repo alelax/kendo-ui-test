@@ -1,0 +1,102 @@
+
+<form class="k-form k-mb-5" [formGroup]="form">
+  <div class="k-my-5 k-d-flex k-gap-2">
+    <button
+      kendoButton
+      size="medium"
+      themeColor="primary"
+      routerLink="base-grid"
+      (click)="resetForm()"
+    >
+      Crea nuova vista
+    </button>
+    <div class="k-flex-initial k-w-56 ">
+      <kendo-label
+        [for]="viewControl"
+        text="Select view:"
+      ></kendo-label>
+      <kendo-combobox
+        #viewControl
+        formControlName="views"
+        [data]="viewsList()"
+        textField="text"
+        valueField="value"
+        [valuePrimitive]="false"
+      >
+      </kendo-combobox>
+    </div>
+    <div class="k-flex-initial k-w-56">
+      <kendo-label text="Nome vista">
+        <kendo-textbox formControlName="viewName" placeholder="Eg. Vista prodotti"></kendo-textbox>
+      </kendo-label>
+    </div>
+    <div class="k-flex-initial k-w-56 k-pt-6">
+      <kendo-checkbox
+        #checkedState
+        formControlName="isDefault"
+      ></kendo-checkbox>
+      <kendo-label
+        class="k-checkbox-label"
+        text="Imposta come vista predefinita"
+        [for]="checkedState"
+      ></kendo-label>
+    </div>
+    <div class="k-flex-initial k-w-56 k-pt-5">
+      <button
+        kendoButton
+        size="medium"
+        themeColor="secondary"
+        (click)="saveNewView(grid)"
+        [disabled]="form.invalid"
+      >
+        {{ form.get('views')?.value ? 'Aggiorna' : 'Salva nuova' }} vista
+      </button>
+    </div>
+    <div class="k-flex-initial k-w-56 k-pt-5">
+      <button
+        kendoButton
+        size="medium"
+        themeColor="secondary"
+        (click)="deleteView()"
+        [disabled]="!form.get('views')?.value"
+      >
+        Cancella vista
+      </button>
+    </div>
+  </div>
+
+</form>
+
+<kendo-grid
+  #grid
+  [columnMenu]="{ lock: true }"
+  [data]="gridService.state().items"
+  [loading]="gridService.state().loading"
+  [pageSize]="gridService.state().gridState.take"
+  [skip]="gridService.state().gridState.skip"
+  [pageable]="pagerSettings()"
+  [sortable]="sorterSettings()"
+  [sort]="gridService.state().gridState.sort"
+  [groupable]="true"
+  [group]="gridService.state().gridState.group"
+  [height]="700"
+  [resizable]="true"
+  [reorderable]="true"
+  (dataStateChange)="gridService.dataStateChange($event, 'local')"
+>
+  @for (column of columnDefs(); track column.field) {
+
+    @switch (column.columnContent) {
+
+      @default {
+        <kendo-grid-column
+          [field]="column.field"
+          [title]="column.title"
+          [format]="column.format"
+          [filter]="column.type"
+          [width]="column.width || 150"
+        />
+      }
+    }
+  }
+</kendo-grid>

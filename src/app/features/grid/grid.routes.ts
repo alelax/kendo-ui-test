@@ -18,6 +18,14 @@ export const gridRoutes: Routes = [
       {
         path: 'grid-with-grouping',
         loadComponent: () => import('./example-grids/grid-with-grouping/grid-with-grouping.component')
+      },
+      {
+        path: 'grid-column-operations',
+        loadComponent: () => import('./example-grids/grid-column-operations/grid-column-operations.component')
+      },
+      {
+        path: 'grid-multi-view-state',
+        loadComponent: () => import('./example-grids/grid-multi-view-state/grid-multi-view-state.component')
       }
     ]
   }

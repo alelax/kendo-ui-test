@@ -1,0 +1,52 @@
+<kendo-grid
+  [columnMenu]="{ lock: true }"
+  [data]="gridService.state().items"
+  [loading]="gridService.state().loading"
+  [pageSize]="gridService.state().gridState.take"
+  [skip]="gridService.state().gridState.skip"
+  [pageable]="pagerSettings()"
+  [sortable]="sorterSettings()"
+  [sort]="gridService.state().gridState.sort"
+  [groupable]="true"
+  [group]="gridService.state().gridState.group"
+  [height]="700"
+  [resizable]="true"
+  [reorderable]="true"
+  (dataStateChange)="gridService.dataStateChange($event, 'local')"
+>
+  @for (column of columnDefs(); track column.field) {
+
+    @switch (column.columnContent) {
+      <!--@case ('image') {
+        <kendo-grid-column
+          [field]="column.field"
+          [title]="column.title"
+          [format]="column.format"
+          [filter]="column.type"
+          [width]="column.width || 150"
+        >
+          <ng-template
+            kendoGridCellTemplate
+            let-dataItem
+            let-rowIndex="rowIndex"
+            let-column="column"
+          >
+            <img class="table-image" [src]="dataItem[column.field]" alt="img">
+          </ng-template>
+        </kendo-grid-column>
+      }-->
+      @default {
+        <kendo-grid-column
+          [field]="column.field"
+          [title]="column.title"
+          [format]="column.format"
+          [filter]="column.type"
+          [width]="column.width || 150"
+        />
+      }
+    }
+
+  }
+
+
+</kendo-grid>

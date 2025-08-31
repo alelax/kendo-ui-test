@@ -1,8 +1,26 @@
-import { inject, Injectable, signal, WritableSignal } from '@angular/core';
+import { computed, inject, Injectable, signal, untracked, WritableSignal } from '@angular/core';
 import { ApiResponse, Product } from '../product.model';
 import { GridRepository } from './grid.repository';
-import { GridDataResult } from '@progress/kendo-angular-grid';
+import { GridDataResult, GridState } from '@progress/kendo-angular-grid';
 import { State, process } from '@progress/kendo-data-query';
+import { ColumnSetting } from '../example-grids/grid-column-operations/grid-column.def';
+
+
+export interface GridView {
+  viewName: string;
+  isDefault: boolean;
+  viewId: number;
+  gridState: {
+    columnsState: ColumnSetting[],
+    dataState: State
+  };
+}
+
+export interface ViewList {
+  text: string;
+  value: number | undefined,
+  isDefault: boolean
+}
 
 interface ProductState {
   items: GridDataResult;
@@ -89,6 +107,58 @@ export class GridService {
         skip: data.skip,
       }
     }));
+  }
+
+
+  // MULTI VIEWS LOGIC
+  activeViewId = signal<number | undefined>(undefined);
+  activeView = computed<GridView | undefined>(() => {
+    const activeViewId = this.activeViewId();
+    if (!activeViewId) return undefined;
+    const views = untracked(this.gridViews);
+
+    console.log('activeViewId: ', activeViewId);
+    console.log('views: ', views.find(v => v.viewId === activeViewId));
+    return views.find(v => v.viewId === activeViewId);
+  });
+  gridViews = signal<GridView[]>([]);
+  gridViewsList = computed<ViewList[]>(() => {
+    const defaultItem: ViewList = { text: "Seleziona una vista", value: undefined, isDefault: false };
+    const mappedViews = this.gridViews().map(v => ({ text: v.viewName, value: v.viewId, isDefault: v.isDefault }))
+    return [...mappedViews, defaultItem];
+  })
+
+  initGridViews() {
+    const storedViews = localStorage.getItem('grid-views');
+    if (storedViews) {
+      const parsedViews = JSON.parse(storedViews);
+      this.gridViews.set(parsedViews);
+    }
+  }
+
+  updateGridViews(gridView: GridView) {
+    const currentId = gridView.viewId;
+    const generateId = `${Date.now()}${Math.random().toString().substring(2, 9)}`;
+
+    const operationId = currentId === 0 ? +generateId : currentId;
+
+    if (currentId === 0)  this.gridViews.update(gridViews => [...gridViews, { ...gridView, viewId: +operationId }]);
+    else this.gridViews.update(gridViews => gridViews.map(gv => gv.viewId === operationId ? { ...gridView } : gv));
+
+    if (gridView.isDefault) {
+      this.gridViews.update(gridViews => gridViews.map(gv => gv.viewId !== operationId ? { ...gv, isDefault: false } : gv));
+    }
+    localStorage.setItem('grid-views', JSON.stringify(this.gridViews()));
+  }
+
+  deleteGridView(gridViewId: number) {
+    console.log('viewId: ', gridViewId);
+    this.gridViews.update(gridViews => gridViews.filter(gv => gv.viewId !== gridViewId));
+    localStorage.setItem('grid-views', JSON.stringify(this.gridViews()));
+  }
+
+  setActiveView(gridViewId: number) {
+    this.activeViewId.set(gridViewId);
   }
 
 }
