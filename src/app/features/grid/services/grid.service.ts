@@ -111,17 +111,14 @@ export class GridService {
 
 
   // MULTI VIEWS LOGIC
+  gridViews = signal<GridView[]>([]);
   activeViewId = signal<number | undefined>(undefined);
   activeView = computed<GridView | undefined>(() => {
     const activeViewId = this.activeViewId();
     if (!activeViewId) return undefined;
     const views = untracked(this.gridViews);
-
-    console.log('activeViewId: ', activeViewId);
-    console.log('views: ', views.find(v => v.viewId === activeViewId));
     return views.find(v => v.viewId === activeViewId);
   });
-  gridViews = signal<GridView[]>([]);
   gridViewsList = computed<ViewList[]>(() => {
     const defaultItem: ViewList = { text: "Seleziona una vista", value: undefined, isDefault: false };
     const mappedViews = this.gridViews().map(v => ({ text: v.viewName, value: v.viewId, isDefault: v.isDefault }))
@@ -152,7 +149,6 @@ export class GridService {
   }
 
   deleteGridView(gridViewId: number) {
-    console.log('viewId: ', gridViewId);
     this.gridViews.update(gridViews => gridViews.filter(gv => gv.viewId !== gridViewId));
     localStorage.setItem('grid-views', JSON.stringify(this.gridViews()));
   }

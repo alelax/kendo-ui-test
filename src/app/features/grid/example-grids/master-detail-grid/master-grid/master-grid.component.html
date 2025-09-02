@@ -1,0 +1,17 @@
+<kendo-grid
+  [data]="gridData | async"
+  [loading]="isLoading"
+  [height]="550"
+  [navigable]="true"
+>
+  <kendo-grid-column field="CategoryID" [width]="100"></kendo-grid-column>
+  <kendo-grid-column
+    field="CategoryName"
+    title="Category Name"
+    [width]="200"
+  ></kendo-grid-column>
+  <kendo-grid-column field="Description"> </kendo-grid-column>
+  <div *kendoGridDetailTemplate="let dataItem">
+    <app-detail-grid [category]="dataItem"></app-detail-grid>
+  </div>
+</kendo-grid>

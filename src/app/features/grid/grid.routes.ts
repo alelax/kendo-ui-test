@@ -26,6 +26,10 @@ export const gridRoutes: Routes = [
       {
         path: 'grid-multi-view-state',
         loadComponent: () => import('./example-grids/grid-multi-view-state/grid-multi-view-state.component')
+      },
+      {
+        path: 'master-detail-grid',
+        loadComponent: () => import('./example-grids/master-detail-grid/master-detail-grid.component')
       }
     ]
   }
