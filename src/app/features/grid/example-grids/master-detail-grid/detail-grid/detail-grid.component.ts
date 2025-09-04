@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { GridDataResult, KENDO_GRID, PageChangeEvent } from '@progress/kendo-angular-grid';
 import { MasterDetailService } from '../services/master-detail.service';
 import { CommonModule } from '@angular/common';
+import { SubDetailGridComponent } from '../sub-detail-grid/sub-detail-grid.component';
 
 export interface Category {
   CategoryID: number;

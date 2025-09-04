@@ -1,8 +1,8 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { GridDataResult, KENDO_GRID } from '@progress/kendo-angular-grid';
+import { GridDataResult, KENDO_GRID, SelectionEvent } from '@progress/kendo-angular-grid';
 import { CategoriesService } from '../services/master-detail.service';
-import { AsyncPipe, JsonPipe } from '@angular/common';
+import { AsyncPipe, JsonPipe, CommonModule } from '@angular/common';
 import { DetailGridComponent } from '../detail-grid/detail-grid.component';
 
 @Component({
