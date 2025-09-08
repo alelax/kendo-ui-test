@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
-import { KENDO_DATEINPUTS } from '@progress/kendo-angular-dateinputs';
 import { KENDO_BUTTON } from '@progress/kendo-angular-buttons';
+import { ThemeService } from '../services/theme.service';
 
 @Component({
   selector: 'app-root',
@@ -11,4 +11,15 @@ import { KENDO_BUTTON } from '@progress/kendo-angular-buttons';
 })
 export class AppComponent {
   title = 'kendo-ui-test';
+  private themeService = inject(ThemeService);
+
+  setDarkModeTheme()
+  {
+    this.themeService.setDarkMode();
+  }
+
+  setLightModeTheme()
+  {
+    this.themeService.setLightMode();
+  }
 }

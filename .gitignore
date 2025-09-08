@@ -8,6 +8,8 @@
 
 # Node
 /node_modules
+/src/styles/test-dark-mode/node_modules
+/src/styles/tema-easygold/node_modules
 npm-debug.log
 yarn-error.log
 

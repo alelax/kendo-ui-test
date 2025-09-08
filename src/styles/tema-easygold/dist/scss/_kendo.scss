@@ -1,0 +1,26 @@
+// Compatible with @progress/kendo-theme-default v.12.0.0
+
+
+  @use 'tokens' as *;
+
+
+@use '../../../../../node_modules/@progress/kendo-theme-default/scss/index' as * with (
+
+  $kendo-font-size-xxs: $tb-kendo-font-size-xxs,
+  $kendo-colors: (
+    primary: $tb-kendo-color-primary,
+    primary-hover: $tb-kendo-color-primary-hover,
+    primary-active: $tb-kendo-color-primary-active,
+    primary-on-surface: $tb-kendo-color-primary-on-surface,
+  ),
+    $kendo-font-family: $tb-kendo-font-family,
+  $kendo-font-size: $tb-kendo-font-size,
+  $kendo-font-weight-normal: $tb-kendo-font-weight-normal,
+  $kendo-line-height: $tb-kendo-line-height,
+
+);
+@use '../../../../../node_modules/@progress/kendo-theme-utils/scss/all' as *;
+
+@forward '../../../../../node_modules/@progress/kendo-theme-default/scss/index';
+
+@include kendo-theme--styles();

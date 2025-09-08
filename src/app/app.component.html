@@ -1,4 +1,14 @@
 <div class="k-my-5 k-d-flex k-gap-2">
+  <button kendoButton [toggleable]="true" (click)="setDarkModeTheme()">
+      <span>
+        Dark Mode Theme
+      </span>
+  </button>
+  <button kendoButton [toggleable]="true" (click)="setLightModeTheme()">
+      <span>
+        Light Mode Theme
+      </span>
+  </button>
   <button kendoButton size="medium" themeColor="primary" routerLink="/">Home</button>
   <button kendoButton size="medium" themeColor="primary" routerLink="grid">Grid</button>
   <button kendoButton size="medium" themeColor="primary" routerLink="calendar">Calendar</button>

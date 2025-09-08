@@ -49,8 +49,7 @@
     "@progress/kendo-angular-toolbar": "20.0.0",
     "@progress/kendo-angular-treeview": "20.0.0",
     "@progress/kendo-angular-dialog": "20.0.0",
-    "@progress/kendo-angular-progressbar": "20.0.0",
-    "tema-easygold": "file:./tema-easygold"
+    "@progress/kendo-angular-progressbar": "20.0.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^19.2.15",

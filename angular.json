@@ -58,7 +58,17 @@
                 "input": "node_modules/@progress/kendo-theme-default/dist/all.css"
               },
               "node_modules/@progress/kendo-theme-utils/dist/all.css",
-              "src/styles.scss"
+              "src/styles.scss",
+              {
+                "inject": false,
+                "input": "src/styles/kendoui-theme-dark.scss",
+                "bundleName": "kendoui-dark"
+              },
+              {
+                "inject": false,
+                "input": "src/styles/kendoui-theme-light.scss",
+                "bundleName": "kendoui-light"
+              }
             ],
             "scripts": []
           },
